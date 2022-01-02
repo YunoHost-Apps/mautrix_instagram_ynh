@@ -1,0 +1,106 @@
+{
+	"name": "Matrix-Instagram Bridge",
+	"id": "mautrix_instagram",
+	"packaging_format": 1,
+	"description": {
+		"en": "An Instagram puppeting bridge for Matrix/Synapse.",
+		"fr": "Passerelle Instagram pour Matrix/Synapse."
+	},
+	"version": "0.1.5~ynh4",
+	"url": "https://github.com/tulir/mautrix-instagram",
+	"license": "AGPL-3.0-or-later",
+	"maintainer": {
+		"name": "navanchauhan",
+		"email": "hello@navan.dev",
+		"url": "https://github.com/navanchauhan/mautrix_instagram_ynh"
+	},
+	"requirements": {
+		"yunohost": ">= 4.0"
+	},
+	"multi_instance": true,
+	"services": [
+        "postgresql"
+    	],
+	"arguments": {
+		"install": [
+			{
+				"name": "synapsenumber",
+				"type": "string",
+				"ask": {
+					"en": "Choose the local synapse instance number to communicate with mautrix_instagram",
+					"fr": "Choisissez le numéro de l'instance synapse qui doit communiquer avec mautrix_instagram"
+				},
+				"example": "2 (for instance synapse__2)",
+				"help": {
+					"en": "If you installed synapse only once time, then leave default value 1.",
+					"fr": "Si vous n'avez installé qu'une fois synapse, gardez la valeur par défaut 1."
+				},
+				"default": "1"
+			},
+			{
+				"name": "instagrambot",
+				"type": "string",
+				"ask": {
+					"en": "Choose a local synapse user name for the Instagram bot",
+					"fr": "Choisissez un nom d'utilisateur synapse local pour le robot Instagram"
+				},
+				"example": "instagrambot",
+				"help": {
+					"en": "A system user will be created. Invite @instagrambot:localsynapse.servername from an authorized Matrix account to start bridging. Give the matrix server_name, not the full domain/url.",
+					"fr": "Un utilisateur système sera créé. Inviter @instagrambot:localsynapse.servername depuis un compte Matrix autorisé pour démarrer une passerelle. Donner le nom du serveur matrix, pas le domaine/url complet."
+				},
+				"default": "instagrambot"
+			},
+			{
+				"name": "bot_is_synapse_admin",
+				"type": "boolean",
+				"ask": {
+					"en": "Give the Instagram bot administrator rights to the synapse instance?",
+					"fr": "Donner au robot Instagram des droits administrateur à l'instance synapse ?"
+				},
+				"help": {
+					"en": "If true, the bot can group Instagram chats in a Matrix community. Not required if you set up synapse so that non-admins are authorized to create communities.",
+					"fr": "Si true, le robot groupera les conversations Instagram dans une communauté Matrix. Pas nécessaire si vous avez réglé synapse pour qu'il autorise les non-admin à créer des communautés."
+				},
+				"default": true
+			},			
+			{
+				"name": "encryption",
+				"type": "boolean",
+				"ask": {
+					"en": "Enable end-to-bridge encryption ?",
+					"fr": "Activer le chiffrement entre synapse et le bridge ?"
+				},
+				"default": false
+			},			
+			{
+				"name": "botadmin",
+				"type": "string",
+				"ask": {
+					"en": "Choose the Matrix account administrator of the Instagram bot",
+					"fr": "Choisissez le compte Matrix administrateur du robot Instagram"
+				},
+				"example": "@johndoe:localsynapse.servername or @johndoe:matrix.org",
+				"help": {
+					"en": "The Instagram bot administrator does not need to be a local synapse account.",
+					"fr": "Le compte administrateur du robot Instagram peut ne pas être un compte local synapse."
+				},
+				"default": "@johndo:matrix.org"
+			},
+			{
+				"name": "botusers",
+				"type": "string",
+				"ask": {
+					"en": "Choose Matrix user(s) authorized to bridge with the Instagram bot",
+					"fr": "Choisissez le/les compte(s) Matrix autorisés à utiliser le robot Instagram"
+				},
+				"example": "admin or local or @johndoe:server.name or server.name or *",
+				"default": "local",
+				"help": {
+					"en": "Either the administrator only (admin), all local synapse users (local), a remote or local user (@johndoe:server.name), a remote server (matrix.org), or all remote/local servers (*) can be authorized. Give the matrix server_name, not the full domain/url.",
+					"fr": "On peut autoriser le compte administrateur seul (admin), tous les comptes synapse locaux (local), un compte local ou distant (@johndoe:server.name), un serveur distant (matrix.org), ou tous les serveurs remote/local (*). Donner le nom du serveur matrix, pas le domaine/url complet."
+				}
+			}
+		]
+	}
+}
